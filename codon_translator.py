@@ -85,6 +85,29 @@ def identify_start_stop_codons(codons):
     stops = [c for c in codons if c in stop_set]
     return starts, stops
 
+def display_translation_results(codons, amino_acids, starts, stops, incomplete):
+    """Displays the translated output in both a structured table and summary format."""
+    if not codons:
+        print("No complete codons (3 nucleotides) available to translate.")
+        return
+
+    print("\n" + "-" * 52)
+    print(f"{'Pos':<6} | {'Codon':<8} | {'Amino Acid':<20} | {'Role':<10}")
+    print("-" * 52)
+    for idx, (codon, aa) in enumerate(zip(codons, amino_acids), start=1):
+        role = "Start" if codon in {'ATG', 'AUG'} else ("Stop" if aa == "Stop" else "Coding")
+        print(f"{idx:<6} | {codon:<8} | {aa:<20} | {role:<10}")
+    print("-" * 52)
+
+    if incomplete:
+        print(f"Incomplete trailing bases ignored: {incomplete}")
+
+    print("\nExpected Output Summary:")
+    print(f"Codons: {'-'.join(codons)}")
+    print(f"Amino acids: {' - '.join(amino_acids)}")
+    print(f"Start codon: {', '.join(starts) if starts else 'None'}")
+    print(f"Stop codon: {', '.join(stops) if stops else 'None'}")
+
 if __name__ == "__main__":
     display_codon_table()
     seq = get_valid_sequence()
@@ -92,8 +115,4 @@ if __name__ == "__main__":
         codons, incomplete = split_into_codons(seq)
         amino_acids = translate_codons(codons)
         starts, stops = identify_start_stop_codons(codons)
-        
-        print("Codons:", codons)
-        print("Amino acids:", amino_acids)
-        print("Start codon(s):", starts)
-        print("Stop codon(s):", stops)
+        display_translation_results(codons, amino_acids, starts, stops, incomplete)
