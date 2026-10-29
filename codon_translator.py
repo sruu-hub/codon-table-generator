@@ -76,11 +76,24 @@ def translate_codons(codons):
         amino_acids.append(CODON_TABLE.get(lookup_codon, "Unknown"))
     return amino_acids
 
+def identify_start_stop_codons(codons):
+    """Identifies start and stop codons present in the sequence."""
+    start_set = {'ATG', 'AUG'}
+    stop_set = {'TAA', 'TAG', 'TGA', 'UAA', 'UAG', 'UGA'}
+
+    starts = [c for c in codons if c in start_set]
+    stops = [c for c in codons if c in stop_set]
+    return starts, stops
+
 if __name__ == "__main__":
     display_codon_table()
     seq = get_valid_sequence()
     if seq:
         codons, incomplete = split_into_codons(seq)
         amino_acids = translate_codons(codons)
+        starts, stops = identify_start_stop_codons(codons)
+        
         print("Codons:", codons)
         print("Amino acids:", amino_acids)
+        print("Start codon(s):", starts)
+        print("Stop codon(s):", stops)
