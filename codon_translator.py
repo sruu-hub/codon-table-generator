@@ -42,23 +42,27 @@ if __name__ == "__main__":
     display_codon_table()
 
 def get_valid_sequence():
-    """Prompts user for a DNA sequence and validates that only A, T, G, C are present."""
-    raw_seq = input("Enter a DNA sequence: ").strip().upper()
+    """Prompts user for a DNA or RNA sequence and validates its characters."""
+    raw_seq = input("Enter a DNA or RNA sequence (e.g., ATGGCTTTTTAA): ").strip().upper()
     if not raw_seq:
         print("Error: Input sequence cannot be empty.")
         return None
 
-    valid_bases = {'A', 'T', 'G', 'C'}
+    valid_bases = {'A', 'T', 'G', 'C', 'U'}
     invalid_bases = set(raw_seq) - valid_bases
     if invalid_bases:
-        print(f"Error: Invalid nucleotide(s) detected: {', '.join(sorted(invalid_bases))}. Only A, T, G, C are allowed.")
+        print(f"Error: Invalid nucleotide(s) detected: {', '.join(sorted(invalid_bases))}.")
+        print("Please enter only valid DNA (A, T, G, C) or RNA (A, U, G, C) nucleotides.")
+        return None
+
+    if 'T' in raw_seq and 'U' in raw_seq:
+        print("Error: Sequence cannot mix DNA (T) and RNA (U) nucleotides simultaneously.")
         return None
 
     return raw_seq
-
 
 if __name__ == "__main__":
     display_codon_table()
     seq = get_valid_sequence()
     if seq:
-        print(f"Validated DNA sequence: {seq}")
+        print(f"Validated sequence: {seq}")
