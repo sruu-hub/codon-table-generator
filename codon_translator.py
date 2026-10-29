@@ -68,11 +68,19 @@ def split_into_codons(sequence):
     codons = [sequence[i:i+3] for i in range(0, len(sequence), 3)]
     return codons, incomplete
 
+def translate_codons(codons):
+    """Translates a list of DNA or RNA codons into their corresponding amino acids."""
+    amino_acids = []
+    for codon in codons:
+        lookup_codon = codon.replace('U', 'T')
+        amino_acids.append(CODON_TABLE.get(lookup_codon, "Unknown"))
+    return amino_acids
+
 if __name__ == "__main__":
     display_codon_table()
     seq = get_valid_sequence()
     if seq:
         codons, incomplete = split_into_codons(seq)
+        amino_acids = translate_codons(codons)
         print("Codons:", codons)
-        if incomplete:
-            print("Incomplete trailing bases ignored:", incomplete)
+        print("Amino acids:", amino_acids)
