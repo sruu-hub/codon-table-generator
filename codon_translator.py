@@ -41,4 +41,24 @@ def display_codon_table():
 if __name__ == "__main__":
     display_codon_table()
 
-    
+def get_valid_sequence():
+    """Prompts user for a DNA sequence and validates that only A, T, G, C are present."""
+    raw_seq = input("Enter a DNA sequence: ").strip().upper()
+    if not raw_seq:
+        print("Error: Input sequence cannot be empty.")
+        return None
+
+    valid_bases = {'A', 'T', 'G', 'C'}
+    invalid_bases = set(raw_seq) - valid_bases
+    if invalid_bases:
+        print(f"Error: Invalid nucleotide(s) detected: {', '.join(sorted(invalid_bases))}. Only A, T, G, C are allowed.")
+        return None
+
+    return raw_seq
+
+
+if __name__ == "__main__":
+    display_codon_table()
+    seq = get_valid_sequence()
+    if seq:
+        print(f"Validated DNA sequence: {seq}")
