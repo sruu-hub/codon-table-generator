@@ -26,4 +26,19 @@ CODON_TABLE = {
     'GGT': 'Glycine',       'GGC': 'Glycine',       'GGA': 'Glycine',       'GGG': 'Glycine'
 }
 
-print(f"Total codons loaded in dictionary: {len(CODON_TABLE)}")
+def display_codon_table():
+    """Displays all 64 codons and their corresponding amino acids in a 4-column table."""
+    print("\n" + "=" * 78)
+    print(f"{'STANDARD GENETIC CODE TABLE (64 CODONS)':^78}")
+    print("=" * 78)
+    items = list(CODON_TABLE.items())
+    for i in range(0, len(items), 4):
+        row = items[i:i+4]
+        print(" | ".join([f"{codon}: {aa:<14}" for codon, aa in row]))
+    print("=" * 78 + "\n")
+
+
+if __name__ == "__main__":
+    display_codon_table()
+
+    
