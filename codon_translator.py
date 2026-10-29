@@ -37,10 +37,6 @@ def display_codon_table():
         print(" | ".join([f"{codon}: {aa:<14}" for codon, aa in row]))
     print("=" * 78 + "\n")
 
-
-if __name__ == "__main__":
-    display_codon_table()
-
 def get_valid_sequence():
     """Prompts user for a DNA or RNA sequence and validates its characters."""
     raw_seq = input("Enter a DNA or RNA sequence (e.g., ATGGCTTTTTAA): ").strip().upper()
@@ -61,8 +57,22 @@ def get_valid_sequence():
 
     return raw_seq
 
+def split_into_codons(sequence):
+    """Splits a nucleotide sequence into triplets and handles trailing incomplete bases."""
+    remainder = len(sequence) % 3
+    incomplete = ""
+    if remainder != 0:
+        incomplete = sequence[-remainder:]
+        sequence = sequence[:-remainder]
+
+    codons = [sequence[i:i+3] for i in range(0, len(sequence), 3)]
+    return codons, incomplete
+
 if __name__ == "__main__":
     display_codon_table()
     seq = get_valid_sequence()
     if seq:
-        print(f"Validated sequence: {seq}")
+        codons, incomplete = split_into_codons(seq)
+        print("Codons:", codons)
+        if incomplete:
+            print("Incomplete trailing bases ignored:", incomplete)
