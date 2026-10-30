@@ -46,7 +46,7 @@ Start codon: ATG
 Stop codon: TAA
 ```
 
-## Comparison with Custom Codon Tables on GitHub (Requirement 9)
+## Comparison with Custom Codon Tables on GitHub 
 When comparing our dictionary implementation (`CODON_TABLE`) with popular open-source bioinformatics repositories on GitHub (such as **Biopython's `Bio.Data.CodonTable`** and standard command-line sequence translators), key structural differences include:
 
 | Feature | Our Implementation (`codon_translator.py`) | Online GitHub Repositories (e.g., Biopython) |
