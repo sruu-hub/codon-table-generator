@@ -14,7 +14,7 @@ This repository contains a Python program that generates the standard 64-codon g
 ## How to Run the Program
 1. Clone this repository:
    ```bash
-   git clone [https://github.com/sruu-hub/codon-table-generator.git](https://github.com/sruu-hub/codon-table-generator.git)
+   git clone https://github.com/sruu-hub/codon-table-generator.git
    cd codon-table-generator
    ```
 2. Run the Python script:
@@ -46,7 +46,7 @@ Start codon: ATG
 Stop codon: TAA
 ```
 
-## Comparison with Custom Codon Tables on GitHub 
+## Comparison with Custom Codon Tables on GitHub (Requirement 9)
 When comparing our dictionary implementation (`CODON_TABLE`) with popular open-source bioinformatics repositories on GitHub (such as **Biopython's `Bio.Data.CodonTable`** and standard command-line sequence translators), key structural differences include:
 
 | Feature | Our Implementation (`codon_translator.py`) | Online GitHub Repositories (e.g., Biopython) |
